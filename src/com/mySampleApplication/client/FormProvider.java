@@ -15,10 +15,9 @@ import com.sencha.gxt.widget.core.client.form.FieldLabel;
 import com.sencha.gxt.widget.core.client.form.FieldSet;
 import com.sencha.gxt.widget.core.client.form.TextField;
 
-public class FormProvider implements IsWidget {
+public class FormProvider extends BasicGrid implements IsWidget  {
 
     private VerticalLayoutContainer widget;
-    private TextField idTxt;
     private TextField nameTxt;
     private TextField contactTxt;
     private TextField addTxt;
@@ -27,12 +26,12 @@ public class FormProvider implements IsWidget {
     public Widget asWidget(){
 
         if( widget == null){
-             idTxt = new TextField();
+
              nameTxt = new TextField();
             contactTxt = new TextField();
             addTxt = new TextField();
 
-            FieldLabel flabel1 = new FieldLabel(idTxt,"Enter Id ");
+
             FieldLabel flabel2 = new FieldLabel(nameTxt,"Enter Name ");
             FieldLabel flabel3 = new FieldLabel(contactTxt,"Enter Contact ");
             FieldLabel flabel4 = new FieldLabel(addTxt,"Enter Address ");
@@ -52,7 +51,7 @@ public class FormProvider implements IsWidget {
             clear.addClickHandler(new ClickHandler() {
                 @Override
                 public void onClick(ClickEvent event) {
-                    idTxt.setText("");
+
                     nameTxt.setText("");
                     contactTxt.setText("");
                     addTxt.setText("");
@@ -63,7 +62,6 @@ public class FormProvider implements IsWidget {
             btnBar.add(clear);
 
             VerticalLayoutContainer vbox = new VerticalLayoutContainer();
-            vbox.add(flabel1);
             vbox.add(flabel2);
             vbox.add(flabel3);
             vbox.add(flabel4);
@@ -89,7 +87,7 @@ public class FormProvider implements IsWidget {
     AsyncCallback<InsertEmp> insertEmpAsyncCallback = new AsyncCallback<InsertEmp>() {
         @Override
         public void onFailure(Throwable caught) {
-            System.out.println(caught.toString());
+            Window.alert("Failed to add employee \n" + caught.toString());
 
         }
 
@@ -97,10 +95,11 @@ public class FormProvider implements IsWidget {
         public void onSuccess(InsertEmp result) {
 
         Window.alert("Employee added Successfully.");
-        idTxt.setText("");
         nameTxt.setText("");
         contactTxt.setText("");
         addTxt.setText("");
+
+        
 
         }
     };
@@ -112,13 +111,13 @@ public class FormProvider implements IsWidget {
         if(service == null){
             service = GWT.create(MySampleApplication.class);
         }
-        if(idTxt.getText() == "" || nameTxt.getText() == "" || contactTxt.getText() == "" || addTxt.getText() == ""){
+        if(nameTxt.getText() == "" || contactTxt.getText() == "" || addTxt.getText() == ""){
             Window.alert("Field can not be blank!!!");
             return;
         }
 
 
-        service.insertEmp( Integer.parseInt(idTxt.getText()) ,nameTxt.getText(),Integer.parseInt(contactTxt.getText()),addTxt.getText(),insertEmpAsyncCallback);
+        service.insertEmp(nameTxt.getText(),Integer.parseInt(contactTxt.getText()),addTxt.getText(),insertEmpAsyncCallback);
 
     }
 

@@ -1,15 +1,27 @@
-package com.mySampleApplication.client;
+package com.mySampleApplication.client.ModelClass;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Employee implements Serializable {
+public class Employee implements IsSerializable {
 
     private int id;
     private String name;
     private String contact;
     private String address;
+
+    public Employee(){ };
+
+
+    public Employee(int id,String name, String contact, String address){
+        this.id = id;
+        this.name = name;
+        this.contact = contact;
+        this.address = address;
+    }
 
 
     public int getId() {

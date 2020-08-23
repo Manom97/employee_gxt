@@ -3,17 +3,16 @@ package com.mySampleApplication.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.mySampleApplication.client.ModelClass.Employee;
+
+import java.util.List;
 
 @RemoteServiceRelativePath("MySampleApplicationService")
 public interface MySampleApplicationService extends RemoteService {
 
     String getStatus(String msg);
-    InsertEmp insertEmp(int id, String name, int contact,String address);
-
-
-//    Employee getEmployees();
-
-
+    InsertEmp insertEmp(String name, int contact,String address);
+    List<Employee> getEmployees();
 
 
     public static class App {
